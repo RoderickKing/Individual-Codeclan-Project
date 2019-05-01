@@ -33,7 +33,7 @@ class LocationView {
     meta.classList.add("meta");
     meta.innerHTML = `<span><br><b>Notes</b> ${
       location.photo_notes
-    } <br><br><br> Lat.: ${location.lat} <br> Long. :${location.long}</span>`;
+    } <br><br>Lat.: ${location.lat} <br> Long. :${location.long}</span>`;
 
     const header = document.createElement("div");
     header.classList.add("header");
