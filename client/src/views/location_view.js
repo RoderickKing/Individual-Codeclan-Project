@@ -18,8 +18,10 @@ class LocationView {
     this.clearLocations();
     const card1 = this.createNotesCard(location);
     this.container.appendChild(card1);
-    const card2 = this.createTimesCard(location);
+    const card2 = this.createSunriseTimeCard(location);
     this.container.appendChild(card2);
+    const card3 = this.createSunsetTimeCard(location);
+    this.container.appendChild(card3);
   }
 
   clearLocations() {
@@ -31,7 +33,7 @@ class LocationView {
     meta.classList.add("meta");
     meta.innerHTML = `<span><b>Notes</b> ${
       location.photo_notes
-    } <br><br><br> Lat.: ${location.lat} <br> Long. :${location.long}`;
+    } <br><br><br> Lat.: ${location.lat} <br> Long. :${location.long}</span>`;
 
     const header = document.createElement("div");
     header.classList.add("header");
@@ -54,31 +56,62 @@ class LocationView {
 
     return card;
   }
-  createTimesCard(location) {
+
+  createSunriseTimeCard(location) {
     var the_times = {};
     the_times = this.derive_times(location.lat, location.long);
 
     const sunrise =
-      `<b>Sunrise</b>` +
+      `<br><b>Sunrise</b>` +
       the_times.sunrise +
-      `<br><b>Golden Hour End</b>` +
+      `<br><br><b>Golden Hour End</b>` +
       the_times.goldenHourEnd +
       `<br>`;
+
+    const meta = document.createElement("div");
+    meta.classList.add("meta");
+
+    meta.innerHTML = sunrise;
+
+    const header = document.createElement("div");
+    header.classList.add("header");
+    header.innerHTML = `Sunrise Data for ${location.placename}`;
+
+    const content = document.createElement("div");
+    content.classList.add("content");
+
+    const card = document.createElement("div");
+
+    card.classList.add("ui");
+
+    // keep below
+
+    card.classList.add("card");
+
+    content.appendChild(header);
+    content.appendChild(meta);
+    card.appendChild(content);
+
+    return card;
+  }
+  createSunsetTimeCard(location) {
+    var the_times = {};
+    the_times = this.derive_times(location.lat, location.long);
 
     const sunset =
       `<br><b>Sunset</b>` +
       the_times.sunset +
-      `<br><b>Golden Hour End</b>` +
+      `<br><br><b>Golden Hour End</b>` +
       the_times.goldenHour;
 
     const meta = document.createElement("div");
     meta.classList.add("meta");
 
-    meta.innerHTML = sunrise + sunset;
+    meta.innerHTML = sunset;
 
     const header = document.createElement("div");
     header.classList.add("header");
-    header.innerHTML = `Data for ${location.placename}`;
+    header.innerHTML = `Sunset Data for ${location.placename}`;
 
     const content = document.createElement("div");
     content.classList.add("content");
