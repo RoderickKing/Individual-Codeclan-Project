@@ -31,7 +31,7 @@ class LocationView {
   createNotesCard(location) {
     const meta = document.createElement("div");
     meta.classList.add("meta");
-    meta.innerHTML = `<span><b>Notes</b> ${
+    meta.innerHTML = `<span><br><b>Notes</b> ${
       location.photo_notes
     } <br><br><br> Lat.: ${location.lat} <br> Long. :${location.long}</span>`;
 
