@@ -10,28 +10,28 @@ class LocationView {
     PubSub.subscribe("Location:location-selection-ready", event => {
       // PubSub.subscribe("Location:location-selection-ready", event => {
       const location = event.detail;
-
       this.render(location);
     });
   }
 
   render(location) {
     this.clearLocations();
-    const card = this.createCard(location);
-    this.container.appendChild(card);
+    const card1 = this.createNotesCard(location);
+    this.container.appendChild(card1);
+    const card2 = this.createTimesCard(location);
+    this.container.appendChild(card2);
   }
 
   clearLocations() {
     this.container.innerHTML = "";
   }
 
-  createCard(location) {
-    this.derive_stats(location.lat, location.long);
+  createNotesCard(location) {
     const meta = document.createElement("div");
     meta.classList.add("meta");
-    meta.innerHTML = `<span>Notes ${location.photo_notes} <br> Lat.: ${
-      location.lat
-    } <br> Long. :${location.long}</span>`;
+    meta.innerHTML = `<span><b>Notes</b> ${
+      location.photo_notes
+    } <br><br><br> Lat.: ${location.lat} <br> Long. :${location.long}`;
 
     const header = document.createElement("div");
     header.classList.add("header");
@@ -54,18 +54,64 @@ class LocationView {
 
     return card;
   }
-  derive_stats(lat, long) {
+  createTimesCard(location) {
+    var the_times = {};
+    the_times = this.derive_times(location.lat, location.long);
+
+    const sunrise =
+      `<b>Sunrise</b>` +
+      the_times.sunrise +
+      `<br><b>Golden Hour End</b>` +
+      the_times.goldenHourEnd +
+      `<br>`;
+
+    const sunset =
+      `<br><b>Sunset</b>` +
+      the_times.sunset +
+      `<br><b>Golden Hour End</b>` +
+      the_times.goldenHour;
+
+    const meta = document.createElement("div");
+    meta.classList.add("meta");
+
+    meta.innerHTML = sunrise + sunset;
+
+    const header = document.createElement("div");
+    header.classList.add("header");
+    header.innerHTML = `Data for ${location.placename}`;
+
+    const content = document.createElement("div");
+    content.classList.add("content");
+
+    const card = document.createElement("div");
+
+    card.classList.add("ui");
+
+    // keep below
+
+    card.classList.add("card");
+
+    content.appendChild(header);
+    content.appendChild(meta);
+    card.appendChild(content);
+
+    return card;
+  }
+
+  derive_times(lat, long) {
     var times = SunCalc.getTimes(new Date(), lat, long);
-    console.dir(times);
-
-    // get position of the sun (azimuth and altitude) at today's sunrise
-    var sunrisePos = SunCalc.getPosition(times.sunrise, lat, long);
-    // get position of the sun (azimuth and altitude) at today's sunset
-    console.dir(sunrisePos);
-
-    var sunsetPos = SunCalc.getPosition(times.sunset, lat, long);
-
-    console.dir(sunsetPos);
+    return times;
+    //
+    // // get position of the sun (azimuth and altitude) at today's sunrise
+    // var sunrisePos = SunCalc.getPosition(times.sunrise, lat, long);
+    // // get position of the sun (azimuth and altitude) at today's sunset
+    // //console.dir(sunrisePos);
+    //
+    // //var sunriseAzimuth = (sunrisePos.azimuth * 180) / Math.PI;
+    // var sunriseAzimuth = sunrisePos;
+    //
+    // console.dir(sunrisePos);
+    // var sunsetPos = SunCalc.getPosition(times.sunset, lat, long);
   }
 }
 

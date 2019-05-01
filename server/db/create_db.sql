@@ -29,9 +29,9 @@ INSERT INTO note
 values (1,'Club meets here every Friday @6pm');
 
 
-INSERT INTO location 
+INSERT INTO locations
 (placename,photo_notes,lat,long)
-values('Calton Hill','Great for sunsets but better just after dark',55.95487,-3.18306);
+values('Calton Hill','Great for sunsets but better just after dark',55.95550,-3.1827);
 
 INSERT INTO note
 (location_id,general_notes)
