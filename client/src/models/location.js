@@ -14,10 +14,6 @@ class Location {
       const newLocation = this.data[newLocationIndex];
       PubSub.publish("Location:location-selection-ready", newLocation);
     });
-
-    // PubSub.subscribe("Location view:vote-button-click", (event) => {
-    //   // TODO
-    // });
   }
   //gets data from backend and publishes location data
   getData() {
