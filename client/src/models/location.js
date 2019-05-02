@@ -23,7 +23,7 @@ class Location {
       .get()
       .then(data => {
         this.data = data;
-        console.log(data);
+
         PubSub.publish("Location:location-data-loaded", this.data);
       })
       .catch(message => {
@@ -31,19 +31,16 @@ class Location {
       });
   }
 
-  // addlocation(id) {
-  //   const url = "http://localhost:3000/photoApp";
-  //   const request = new RequestHelper(url);
-  //   request
-  //     .get()
-  //     .then(data => {
-  //       this.data = data;
-  //       PubSub.publish("Locations:locations-data-loaded", this.data);
-  //     })
-  //     .catch(message => {
-  //       console.error(message);
-  //     });
-  // }
+  postLocation(char) {
+    const url = `http://localhost:3000/photoApp`;
+    const request = new RequestHelper(url);
+    request
+      .post(char)
+      .then(location => {
+        PubSub.publish("Location:location-data-loaded", location);
+      })
+      .catch(console.error);
+  }
 }
 
 module.exports = Location;

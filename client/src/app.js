@@ -2,6 +2,7 @@ const Location = require("./models/location.js");
 const SelectLocationView = require("./views/select_location_view.js");
 const LocationView = require("./views/location_view.js");
 const MapView = require("./views/map_view.js");
+const FormView = require("./views/form_view.js");
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("JavaScript Loaded");
@@ -18,4 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const location = new Location();
   location.bindEvents();
   location.getData();
+
+  const formview = new FormView(document.querySelector("#locations-form"));
+  formview.bindEvents();
 });

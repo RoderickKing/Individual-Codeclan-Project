@@ -1,5 +1,4 @@
 const PubSub = require("../helpers/pub_sub.js");
-const SunCalc = require("suncalc");
 
 class MapView {
   constructor() {
@@ -18,13 +17,17 @@ class MapView {
   }
 
   placeMarkerAndPanTo(lat, lng, myMap) {
-    console.log("coord are ", lat, " ", lng);
+    var coords = [];
+    coords[0] = lat;
+    coords[1] = lng;
+
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(lat, lng),
       map: myMap,
       animation: google.maps.Animation.DROP
     });
     myMap.panTo(marker.position);
+    PubSub.publish("Location:add-location", coords);
   }
 }
 

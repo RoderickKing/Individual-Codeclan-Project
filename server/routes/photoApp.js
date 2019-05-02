@@ -13,7 +13,7 @@ router.get("/", function(req, res) {
 router.post("/", function(req, res) {
   SqlRunner.run(
     "INSERT INTO locations (placename,photo_notes,lat,long) VALUES ($1, $2, $3, $4)",
-    [req.body.placename, req.body.photo_notes, req.body.lat, req.body.long]
+    [req.body.placename, req.body.photo_notes, req.body.lat, req.body.lng]
   ).then(result => {
     SqlRunner.run("SELECT placename,photo_notes,lat,long FROM locations").then(
       result => {

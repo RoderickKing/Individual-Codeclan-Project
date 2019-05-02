@@ -8,3 +8,7 @@ body {
 #map {
   height: 50%;
 }
+
+.card {
+  background-color: yellow !important;
+}
