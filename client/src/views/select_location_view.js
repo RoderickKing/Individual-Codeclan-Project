@@ -10,7 +10,6 @@ class SelectLocationView {
   bindEvents() {
     PubSub.subscribe("Location:location-data-loaded", event => {
       const allLocations = event.detail;
-
       this.selectLocationList(allLocations);
     });
     //listens for change in location selection from dropdown list and
@@ -24,6 +23,7 @@ class SelectLocationView {
   //creates option/dropdown menu displaying Location name
   //and sets value as the Location index
   selectLocationList(locationData) {
+    this.element.innerHTML = "";
     locationData.forEach((location, index) => {
       const option = document.createElement("option");
       option.textContent = location.placename;

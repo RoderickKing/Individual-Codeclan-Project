@@ -14,6 +14,11 @@ class Location {
       const newLocation = this.data[newLocationIndex];
       PubSub.publish("Location:location-selection-ready", newLocation);
     });
+
+    PubSub.subscribe("Form-View:Ready-add-new-location", event => {
+      const newLocation = event.detail;
+      this.postLocation(newLocation);
+    });
   }
   //gets data from backend and publishes location data
   getData() {
@@ -37,6 +42,7 @@ class Location {
     request
       .post(char)
       .then(location => {
+        this.data = location;
         PubSub.publish("Location:location-data-loaded", location);
       })
       .catch(console.error);

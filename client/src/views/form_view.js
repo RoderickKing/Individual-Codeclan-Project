@@ -24,9 +24,7 @@ class FormView {
       newLocation.lat = lat;
       newLocation.lng = lng;
 
-      const locations = new Location();
-      console.dir(newLocation);
-      locations.postLocation(newLocation);
+      PubSub.publish("Form-View:Ready-add-new-location", newLocation);
 
       this.element.reset();
     });

@@ -9,11 +9,13 @@ class LocationView {
   bindEvents() {
     PubSub.subscribe("Location:location-selection-ready", event => {
       const location = event.detail;
+      console.log("data", location);
       this.render(location);
     });
   }
 
   render(location) {
+    console.log("inside render");
     this.clearLocations();
     const card1 = this.createNotesCard(location);
     this.container.appendChild(card1);
